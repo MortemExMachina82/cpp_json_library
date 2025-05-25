@@ -382,8 +382,13 @@ struct JsonItem {
             return Out;
         }
         if (Type == Json_Double) {
+            //if value is not displayable write 0
+            double OutValue = Value_Double;
+            if (!std::isfinite(Value_Double)) {
+                OutValue = 0;
+            }
             char D[64];
-            int size = snprintf(D, 64, "%f", Value_Double);
+            int size = snprintf(D, 64, "%f", OutValue);
             Out += D;
             return Out;
         }
